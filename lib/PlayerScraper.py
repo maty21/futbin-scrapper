@@ -1,5 +1,7 @@
+from time import sleep
 import bs4
 import re
+import asyncio
 from pyquery import PyQuery as pq
 class PlayerScraper:
     def __init__(self):
@@ -82,15 +84,20 @@ class PlayerScraper:
             return []
 
     def pageParser(self,page):
-        _pq = pq(page.text)
-        bs = bs4.BeautifulSoup(page.text, 'html.parser')
-        table = bs.find('table', {'id': 'repTb'})
-        tbody = table.find('tbody')
-        extracted = tbody.findAll('tr', {'class': re.compile('player_tr_\\d')})
-        Card = []
-        for cardDetails in extracted:
-            cd=  self._playerScraper(cardDetails=cardDetails)
-            if len(cd)>0:
-                Card.append(cd)
-            print(cd)
+        try:
+            _pq = pq(page.text)
+            bs = bs4.BeautifulSoup(page.text, 'html.parser')
+            table = bs.find('table', {'id': 'repTb'})
+            tbody = table.find('tbody')
+            extracted = tbody.findAll('tr', {'class': re.compile('player_tr_\\d')})
+            Card = []
+            for cardDetails in extracted:
+                cd=  self._playerScraper(cardDetails=cardDetails)
+                if len(cd)>0:
+                    Card.append(cd)
+ #               print(cd)
+            sleep(10)
             return Card
+        except:
+            sleep(60)
+            return None
