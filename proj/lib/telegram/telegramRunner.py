@@ -40,7 +40,7 @@ class TelegramRunner:
                 await context.bot.answer_inline_query(update.inline_query.id, results)
             
     def runner(self):
-        self.app = ApplicationBuilder().token("2024197533:AAEe7RVyPXBT8Lt6HTFXFFyNTy9FPtypsv8").build()
+        self.app = ApplicationBuilder().token("token").build()
         self.app.add_handler(CommandHandler("hello", self.hello))
         self.app.add_handler(InlineQueryHandler(self.inline_caps))
         self.app.run_polling()
