@@ -24,9 +24,9 @@ class PlayerQuerier():
         cursor.execute("SELECT * FROM players WHERE Name LIKE ? AND Rating LIKE ? ",("%"+name+"%","%"+rating+"%"))
         rows= cursor.fetchall()
         print(rows)
+        return rows
         
-
 
 pq = PlayerQuerier()
 pq.init()
-pq.findPlayerIdByDetails(name="Neymar Jr",rating="96")
+pq.findPlayerIdByDetails(name="neymar",rating="96")

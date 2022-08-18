@@ -12,7 +12,7 @@ import sqlite3
 
 
 
-class MainFlow():
+class DbCretaor():
     def __init__(self):
       self._scraper = cloudscraper.create_scraper(
         browser={'browser': 'firefox', 'platform': 'windows', 'mobile': False})
@@ -76,7 +76,7 @@ class MainFlow():
             #    [print(t.is_alive()) for t in threads]
             #    [t.join() for t in threads]
             df = pd.DataFrame(Cards)
-            df.to_csv('./output/FutBin_Players_Stats_FIFA_22.csv', mode='a',
+            df.to_csv('../output/FutBin_Players_Stats_FIFA_22.csv', mode='a',
                         header=False, sep=',', encoding='utf-8', index=False)
 
     def Start(self):
@@ -92,10 +92,10 @@ class MainFlow():
                     'Phyiscality', 'Body Type', 'Weight', 'Height', 'WorkRate',
                     'Popularity', 'BaseStats', 'InGameStats']
 
-        C = open('./output/FutBin_Players_Stats_FIFA_22_flat.csv', 'w')
+        C = open('../output/FutBin_Players_Stats_FIFA_22_flat.csv', 'w')
         C.write(','.join(cardColumns) + '\n')
         C.close()
-        df=  pd.read_csv('./output/FutBin_Players_Stats_FIFA_22_full.csv')
+        df=  pd.read_csv('../output/FutBin_Players_Stats_FIFA_22_full.csv')
         cards = df.values.tolist()
         for c in cards:
             for r in c:
@@ -103,11 +103,11 @@ class MainFlow():
                     obj= list(r.replace("[","").replace("]", "").replace("'", "").replace("\\", "").split(","))
                     flatCards.append(obj)
         df = pd.DataFrame(flatCards) 
-        df.to_csv('./output/FutBin_Players_Stats_FIFA_22_flat2.csv', mode='a',
+        df.to_csv('../output/FutBin_Players_Stats_FIFA_22_flat2.csv', mode='a',
                         header=False, sep=',', encoding='utf-8', index=False)
     
     def createDbFromCsv(self):
-        conn = sqlite3.connect('./db/players.db')
+        conn = sqlite3.connect('../db/players.db')
         c = conn.cursor()
         c.execute('''CREATE TABLE players (ID string,Name string,Rating string,Position string,Revision string,Nation string,
                   Club string,League string,PriceVsPS string,
@@ -118,7 +118,7 @@ class MainFlow():
         players.to_sql('players', conn, if_exists='append', index = False)  
                  
       
-mf = MainFlow()
+#mf = DbCretaor()
 #mf.Start()
-mf.createDbFromCsv()
+#mf.createDbFromCsv()
 
