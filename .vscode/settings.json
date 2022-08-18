@@ -1,0 +1,12 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "players",
+            "group": "futbin",
+            "database": "\\\\wsl.localhost\\Ubuntu\\home\\maty21\\openSource\\futbin-scrapper\\db\\players.db"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}

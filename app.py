@@ -100,10 +100,10 @@ class MainFlow():
         for c in cards:
             for r in c:
                 if r==r: 
-                    obj= list(r.replace("[","").replace("]", "").replace("\\", "").split(","))
+                    obj= list(r.replace("[","").replace("]", "").replace("'", "").replace("\\", "").split(","))
                     flatCards.append(obj)
         df = pd.DataFrame(flatCards) 
-        df.to_csv('./output/FutBin_Players_Stats_FIFA_22_flat.csv', mode='a',
+        df.to_csv('./output/FutBin_Players_Stats_FIFA_22_flat2.csv', mode='a',
                         header=False, sep=',', encoding='utf-8', index=False)
     
     def createDbFromCsv(self):
@@ -112,14 +112,13 @@ class MainFlow():
         c.execute('''CREATE TABLE players (ID string,Name string,Rating string,Position string,Revision string,Nation string,
                   Club string,League string,PriceVsPS string,
                   WeakFoot string,SkillMoves string,Pace string,Shooting string,Passing string,Dribbling string,Defending string,Phyiscality string,
-                  BodyType string,Weight string,Height string,WorkRate string,Popularity string,BaseStats string,InGameStats string)''')
+                  BodyType string,Weight string,Height string,WorkRate string,Popularity string,BaseStats string,InGameStats string,None1 string,None2 string,None3 string)''')
         c = conn.cursor()
         players = pd.read_csv('./output/FutBin_Players_Stats_FIFA_22_flat.csv')
         players.to_sql('players', conn, if_exists='append', index = False)  
                  
-       
-       
+      
 mf = MainFlow()
 #mf.Start()
-mf.createDbFromCsv()wrrwds
+mf.createDbFromCsv()
 
