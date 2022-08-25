@@ -25,8 +25,13 @@ class PlayerQuerier():
         rows= cursor.fetchall()
         print(rows)
         return rows
-        
+    def findPlayerData(self,name):
+        cursor = self._conn.cursor()
+        cursor.execute("SELECT * FROM players WHERE Name LIKE ?",("%"+name+"%",))
+        rows= cursor.fetchall()
+        print(rows)
+        return rows      
 
-pq = PlayerQuerier()
-pq.init()
-pq.findPlayerIdByDetails(name="neymar",rating="96")
+# pq = PlayerQuerier()
+# pq.init()
+# pq.findPlayerIdByDetails(name="neymar",rating="96")
